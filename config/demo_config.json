@@ -1,0 +1,29 @@
+{
+   "robots": [
+     {
+       "name": "arm_1",
+       "type": "ur5",
+       "urdf": "assets/ur5/ur5.urdf",
+       "base_position": [-0.4,0,0.5],
+       "base_orientation": [0,0,0,1],
+       "start": [0,-1.2,1.0,0,0,0],
+       "goal": [1.0,-1.0,0.5,0,0,0]
+     },
+     {
+       "name": "arm_2",
+       "type": "ur5",
+       "urdf": "assets/ur5/ur5.urdf",
+       "base_position": [0.4,0,0.5],
+       "base_orientation": [0,0,0,1],
+       "start": [0.5,-1.2,1.0,0,0,0],
+       "goal": [-1.0,-1.0,0.5,0,0,0]
+     }
+   ],
+  "obstacles": [
+    {
+      "type": "box",
+      "position": [0,0,0.5],
+      "size": [0.2,0.2,1.0]
+    }
+  ]
+}
