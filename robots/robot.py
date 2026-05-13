@@ -35,7 +35,7 @@ class Robot:
                                  flags=p.URDF_USE_SELF_COLLISION
                                  )
 
-        pu.dump_body(self.id)
+        # pu.dump_body(self.id)
         self.joints = pu.get_revolute_joints(self.id) #这里默认机械臂是不带有末端夹爪的，否这这里会超
         self.dof = len(self.joints)
         self.end_effector = self.joints[-1]
