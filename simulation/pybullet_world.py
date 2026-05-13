@@ -2,7 +2,6 @@ import time
 import pybullet as p
 import pybullet_data
 from pybullet import connect
-from pybullet_utils.readwriteurdf import body_id
 
 
 #这个类只负责构建仿真世界
@@ -47,7 +46,6 @@ class PyBulletWorld:
           collision_shape = p.createCollisionShape(
               shapeType=p.GEOM_BOX,
               halfExtents=half_extents,
-              rgbaColor=color,
           )
           visual_shape = p.createVisualShape(
               shapeType=p.GEOM_BOX,
@@ -68,7 +66,7 @@ class PyBulletWorld:
 
       def load_obstacles(self,obstacle_configs):
           for obstacle in obstacle_configs:
-              obstacle_type = obstacle_configs.get("type","box")
+              obstacle_type = obstacle.get("type","box")
               if obstacle_type == "box":
                   self.load_box(
                       position=obstacle["position"],

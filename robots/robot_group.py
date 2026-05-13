@@ -1,8 +1,5 @@
 import numpy as np
-from robot import Robot
 import utils.pybullet_utils as pu
-# from planners.RRT import rrt
-import time
 from itertools import combinations,product
 
 RRT_EDGE_CHECK_RESOLUTION = 0.04
@@ -13,6 +10,7 @@ class RobotGroup:
         self.num_robots = len(robots)
         self.dofs = [robot.dof for robot in robots]
         self.total_dof = sum(self.dofs)
+        self.robot_ids = [robot.id for robot in robots]
 
     def split_config(self,group_config):
         if len(group_config) != self.total_dof:
@@ -100,7 +98,7 @@ class RobotGroup:
             check_link_pairs.append(
                 pu.get_self_link_pairs(self.robots[i].id, self.robots[i].joints, disabled_collisions)
                 if self_collisions else [])
-        moving_bodies = self.robots + [attachment.child for attachment in attachments]
+        moving_bodies = self.robot_ids + [attachment.child for attachment in attachments]
         if obstacles is None:
             obstacles = list(set(pu.get_bodies()) - set(moving_bodies))
         check_body_pairs = list(product(moving_bodies, obstacles)) + list(combinations(moving_bodies, 2))
