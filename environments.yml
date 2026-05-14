@@ -1,0 +1,12 @@
+name: pybullet_multiarm_planner
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.11
+  - numpy
+  - matplotlib
+  - pip
+  - pip:
+      - pybullet>=3.2.7
+      - ompl>=2.0.0

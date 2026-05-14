@@ -1,7 +1,5 @@
 import random
 
-
-
 class TreeNode:
     def __init__(self,config,parent=None):
         self.config = config
