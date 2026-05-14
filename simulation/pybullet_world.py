@@ -3,7 +3,7 @@ import pybullet as p
 import pybullet_data
 from pybullet import connect
 
-
+DT = 1.0 / 240.0
 #这个类只负责构建仿真世界
 class PyBulletWorld:
       def __init__(self,render=True):
@@ -11,6 +11,7 @@ class PyBulletWorld:
           self.client_id = None
           self.plane_id = None
           self.obstacle_ids = []
+
 
       def connect(self):
           if self.render:
@@ -94,7 +95,7 @@ class PyBulletWorld:
           )[0]
 
 
-      def step(self,steps=1,sleep=0.0):
+      def step(self,steps=1,sleep=DT):
           for _ in range(steps):
               p.stepSimulation()
               if sleep > 0:

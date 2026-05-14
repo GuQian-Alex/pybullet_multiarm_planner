@@ -40,6 +40,14 @@ class RobotGroup:
         for robot,config in zip(self.robots,robot_configs):
             robot.set_arm_joints(config)
 
+    def control_joints_positions(self,group_config):
+        robot_joints = [robot.joints for robot in self.robots]
+        pu.control_joints(
+            self.robot_ids,
+            robot_joints,
+            self.split_config(group_config),
+        )
+
     def get_joint_positions(self):
         robot_configs = []
         for robot in self.robots:
@@ -127,3 +135,4 @@ class RobotGroup:
                     return False
             return True
         return collision_fn,edge_collision_fn
+

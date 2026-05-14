@@ -1,4 +1,5 @@
-from planners.rrt_toy import RRTPlanner
+from planners.rrt_toy import RRTPlanner as toy_planner
+from planners.rrt_basic import RRTPlanner as basic_planner
 from simulation.pybullet_world import PyBulletWorld
 from robots.robot_group import RobotGroup
 from robots.robot import Robot
@@ -39,19 +40,43 @@ def main():
     start_config = group.get_joint_positions()
     goal_config = [1.0,-1.2,1.0,0.3,0.2,0.0]
 
-    planner = RRTPlanner(
+    #toy_planner -----> rrt_toy.py
+    # planner = toy_planner(
+    #     max_iterations=2000,
+    #     goal_sample_rate=0.2,
+    #     goal_tolerance=0.05,
+    # )
+
+    # path = planner.plan(
+    #     start_config=start_config,
+    #     goal_config=goal_config,
+    #     sample_fn=group.sample,
+    #     distance_fn = group.distance,
+    #     extend_fn=group.get_extend_fn(),
+    #     collision_fn=collision_fn,
+    # )
+
+    # basic_planner ----->rrt_basic.py
+    planner = basic_planner(
         max_iterations=2000,
         goal_sample_rate=0.2,
         goal_tolerance=0.05,
     )
 
     path = planner.plan(
-        start_config=start_config,
-        goal_config=goal_config,
-        sample_fn=group.sample,
-        distance_fn = group.distance,
-        extend_fn=group.get_extend_fn(),
-        collision_fn=collision_fn,
+        start=start_config,
+        goal_sample=goal_config,
+        distance=group.distance,
+        sample=group.sample,
+        extend=group.get_extend_fn(),
+        collision=collision_fn,
+        goal_test=lambda q: False,
+        iterations= planner.max_iteration,
+        goal_probability=planner.goal_sample_rate,
+        greedy=True,
+        visualize=False,
+        fk=None,
+        group=False,
     )
 
     if path is None:
